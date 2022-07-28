@@ -93,8 +93,8 @@ for i in trange(len(datasets)):
     
 
     init_inds = np.arange(n-1)
-  #  bestMedoids = np.random.permutation(init_inds)[:c]
-   # bestMedoids=list(bestMedoids)
+    bestMedoids = np.random.permutation(init_inds)[:c]
+    bestMedoids=list(bestMedoids)
     cluster_New=list()
     for i in range(c):
         cluster_d= dataset.iloc[:, bestMedoids[i]]
