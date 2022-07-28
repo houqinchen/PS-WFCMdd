@@ -61,8 +61,8 @@ datasets = [("data/BeetleFly.csv",2)]
 print("--------------------------------------------")
 from sklearn.metrics.cluster import adjusted_rand_score,fowlkes_mallows_score
 from metrics import cal_clustering_metric,purity_score
-res={"Dataset":[],"ARI":[],"ACC":[],"FMI":[],"NMI":[],"purity":[]}
-kSARI,kSAMI,kSFMI,kSNMI,kSpurity=[],[],[],[],[]
+res={"Dataset":[],"ARI":[],"FMI":[],"NMI":[]}
+kSARI,kSFMI,kSNMI=[],[],[]
 for i in trange(len(datasets)):
     data=datasets[i]
     dataset=pd.read_csv(data[0],header=None)
@@ -113,23 +113,17 @@ for i in trange(len(datasets)):
     ARI=adjusted_rand_score(label,cluster_labels)
     res["ARI"].append(ARI)
     
-    ACC,_=cal_clustering_metric(label,cluster_labels)
-    res["ACC"].append(ACC)
-
     FMI=fowlkes_mallows_score(label,cluster_labels,sparse=False)
     res["FMI"].append(FMI)
     
     _,NMI=cal_clustering_metric(label,cluster_labels)
     res["NMI"].append(NMI)
     
-    purity=purity_score(label,cluster_labels)
-    res["purity"].append(purity)
 
     kSARI.append(ARI)
-    kSAMI.append(ACC)
     kSFMI.append(FMI)
     kSNMI.append(NMI)
-    kSpurity.append(purity)
+
     
 df=pd.DataFrame(res)
 print(df)
